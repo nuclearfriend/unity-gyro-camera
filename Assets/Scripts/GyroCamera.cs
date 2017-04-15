@@ -7,9 +7,15 @@ public class GyroCamera : MonoBehaviour
 
 	void Awake()
 	{
-		Input.gyro.enabled = true;
-
-		// AndroidFix();
+		if (SystemInfo.supportsGyroscope)
+		{
+			Input.gyro.enabled = true;
+			GyroFix();
+		}
+		else
+		{
+			enabled = false;
+		}
 	}
 
     void Update()
@@ -27,7 +33,7 @@ public class GyroCamera : MonoBehaviour
         GUILayout.Label("iphone width/font: " + Screen.width + " : " + GUI.skin.label.fontSize);
     }
 
-	void AndroidFix()
+	void GyroFix()
 	{
 		// Create a parent object containing the camera (you could do this manually in the 
 		// hierarchy if preferred, or here in code)
